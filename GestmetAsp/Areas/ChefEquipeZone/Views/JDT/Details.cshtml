@@ -1,0 +1,98 @@
+﻿@model GestmetAsp.Models.JDTListe
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>JDTListe</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonnelId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonnelId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PosteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PosteId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateChantier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateChantier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeuresProd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeuresProd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VoitPerso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VoitPerso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZoneDepl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZoneDepl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChefChantierId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChefChantierId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumSemaine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumSemaine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstValide)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstValide)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

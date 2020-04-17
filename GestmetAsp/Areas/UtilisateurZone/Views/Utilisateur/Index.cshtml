@@ -1,0 +1,87 @@
+﻿@model IEnumerable<GestmetAsp.Models.JDTListe>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonnelId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PosteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateChantier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeuresProd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VoitPerso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ZoneDepl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChefChantierId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumSemaine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstValide)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonnelId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PosteId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateChantier)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeuresProd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoitPerso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZoneDepl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChefChantierId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumSemaine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstValide)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>*@
+    </tr>
+}
+
+</table>

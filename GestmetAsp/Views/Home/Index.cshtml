@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>GESTMET</h1>
+    <h4>@ViewBag.Message</h4>
+    <p class="lead">Bienvenue dans le système de gestion des prestations sur chantier de L....R BATIMENT</p>
+    @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>QUI SOMMES-NOUS?</h2>
+        <p>
+            L....R BATIMENT est une société de construction spécialisée dans les ouvrages en béton.
+        </p>
+        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
+    </div>
+    <div class="col-md-4">
+        <h2>VALIDEZ VOTRE INSCRIPTION</h2>
+        <p>Seuls les membres du personnel dont l'inscription est validée peuvent accéder aux transactions.</p>
+        <p><a class="btn btn-default" href="/Inscription/UpdateUtilisateur">Inscription &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>CONSULTATION DES PRESTATIONS</h2>
+        <p>Retrouvez ici vos prestations sur chantier pour une semaine choisie.</p>
+        <p><a class="btn btn-default" href="../UtilisateurZone/Utilisateur/Index">Consultation &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>SAISIE DES PRESTATIONS</h2>
+        <p>Rentrez ici les prestations sur chantier pour une semaine choisie.</p>
+        <p><a class="btn btn-default" href="../ChefEquipeZone/JDT/Index">Saisie &raquo;</a></p>
+    </div>
+</div>

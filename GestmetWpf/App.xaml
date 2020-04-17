@@ -1,0 +1,11 @@
+﻿<Application x:Class="GestmetWpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:GestmetWpf"
+             xmlns:vm="clr-namespace:GestmetWpf.ViewModels"
+             
+             StartupUri="UtilisateurWindow.xaml">
+    <Application.Resources>
+        <vm:UtilisateurViewModel x:Key="Utilisateur" />
+    </Application.Resources>
+</Application>

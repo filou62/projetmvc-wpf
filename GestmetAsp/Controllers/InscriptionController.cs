@@ -143,7 +143,8 @@ namespace GestmetAsp.Controllers
                 if (ur.EstActif)
                 {
                     ViewBag.Message = "Vous êtes déjà inscrit";
-                    return RedirectToAction("../Home/Index");
+                    return View();
+                   // return RedirectToAction("../Home/Index");
                 }
                 else
                     return RedirectToAction("Edit",new  {id =ur.Id });

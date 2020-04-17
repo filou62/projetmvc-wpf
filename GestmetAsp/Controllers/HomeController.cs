@@ -71,9 +71,11 @@ namespace GestmetAsp.Controllers
                     return RedirectToAction("../Home/Index");
                 }    
              else
-               {     
+               {
+                    
                     ViewBag.Message = "Vous devez vous inscrire avant de vous connecter";
-                    return RedirectToAction("../Home/Index"); 
+                    return View();
+                    //return RedirectToAction("../Home/Index"); 
                 }
 
                     

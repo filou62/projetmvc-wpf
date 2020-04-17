@@ -80,9 +80,10 @@ namespace GestmetWpf.ViewModels
         }
         private void RemoveUtilisateur(Models.Utilisateur param)
         {
-            UtilisateurList.Remove(param);
+            
             _serviceutil = new UtilisateurRepository();
             _serviceutil.Delete(param.Id);
+            UtilisateurList.Remove(param);
         }
         private void AddUtilisateur()
         {
@@ -95,7 +96,22 @@ namespace GestmetWpf.ViewModels
 
             _serviceutil = new UtilisateurRepository();
             _serviceutil.Create(new UIGestmetModelsClient.Utilisateur(u.Email, u.Login, u.MotPasse, u.PersonnelId, u.EstActif));
+          // tester avec try catch si la connection avec la db s'est bien faite et if si il y a bien eu un enrgistrement de creer
+           // UtilisateurList.Add(u);
+            //UtilisateurList.Clear();
+            UtilisateurList = new ObservableCollection<Models.Utilisateur>(_serviceutil.GetAll().Select(ug => new Models.Utilisateur
+            {
+                Id = ug.Id,
+                Email = ug.Email,
+                Login = ug.Login,
+                MotPasse = ug.MotPasse,
+                PersonnelId = ug.PersonnelId,
+                EstActif = ug.EstActif
+            }));
+           // AddCommand = new RelayCommand(AddUtilisateur);
+           // RemoveCommand = new RelayCommand<Models.Utilisateur>(RemoveUtilisateur);
             
+
 
         }
 

@@ -23,17 +23,19 @@ namespace GestmetAsp.Areas.UtilisateurZone.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(DateTime datedebut)
+        public ActionResult Index(DateTime? datedebut)
         {
             if (SessionManager.SessionUser != null)
             {
-                TempData["estdisplay"] = "oui";
-                if(int()datedebut.DayOfWeek != 1 )
-                {
-                    ViewBag.Message = "La date de recherche n'est pas un lundi ou est nulle";
+                
+                if(datedebut == null || (int)((DateTime)datedebut).DayOfWeek != 1)
+                {                
+                    ViewBag.Message = "La date de recherche n'est pas un lundi ou n'est pas valable";
                     TempData["estdisplay"] = "non";
                     return View();
                 }
+                
+                TempData["estdisplay"] = "oui";
                 return View(_serviceUtilisateur.GetAll().Select(s => new JDTListe()
                 {
                     Id = s.Id,
@@ -48,7 +50,7 @@ namespace GestmetAsp.Areas.UtilisateurZone.Controllers
                     NumSemaine = s.NumSemaine,
                     EstValide = s.EstValide
                 }).Where(jdt => jdt.PersonnelId == SessionManager.SessionUser.PersonnelId
-                             && (jdt.DateChantier >= datedebut & jdt.DateChantier <= (datedebut.AddDays(6)))));
+                             && (jdt.DateChantier >= datedebut & jdt.DateChantier <= ((DateTime)datedebut).AddDays(6))));
             }
             else
                 return RedirectToAction("../../Home/Index");

@@ -337,6 +337,7 @@
     <Content Include="Areas\ChefEquipeZone\Views\JDT\Create.cshtml" />
     <Content Include="Areas\ChefEquipeZone\Views\JDT\Details.cshtml" />
     <Content Include="Areas\ChefEquipeZone\Views\JDT\Edit.cshtml" />
+    <Content Include="Areas\ChefEquipeZone\Views\JDT\Test.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

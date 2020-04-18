@@ -21,11 +21,19 @@ namespace GestmetAsp.Areas.UtilisateurZone.Controllers
             _serviceUtilisateur = new JDTRepository();
             
         }
-        // GET: JDT
-        public ActionResult Index()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(DateTime datedebut)
         {
             if (SessionManager.SessionUser != null)
             {
+                TempData["estdisplay"] = "oui";
+                if(int()datedebut.DayOfWeek != 1 )
+                {
+                    ViewBag.Message = "La date de recherche n'est pas un lundi ou est nulle";
+                    TempData["estdisplay"] = "non";
+                    return View();
+                }
                 return View(_serviceUtilisateur.GetAll().Select(s => new JDTListe()
                 {
                     Id = s.Id,
@@ -39,10 +47,22 @@ namespace GestmetAsp.Areas.UtilisateurZone.Controllers
                     Login = s.Login,
                     NumSemaine = s.NumSemaine,
                     EstValide = s.EstValide
-                }).Where(jdt => jdt.PersonnelId == SessionManager.SessionUser.PersonnelId));
+                }).Where(jdt => jdt.PersonnelId == SessionManager.SessionUser.PersonnelId
+                             && (jdt.DateChantier >= datedebut & jdt.DateChantier <= (datedebut.AddDays(6)))));
             }
             else
                 return RedirectToAction("../../Home/Index");
+        }
+        [HttpGet]
+        public ActionResult Index()
+        {
+            if (SessionManager.SessionUser != null)
+            { 
+            TempData.Add("estdisplay", "non");
+            return View();
+            }
+            else
+            return RedirectToAction("../../Home/Index");
         }
     }
 }

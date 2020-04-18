@@ -24,7 +24,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                     <li>@Html.ActionLink("À propos de", "About", "Home")</li>
-                    @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (SessionManager.SessionUser == null)
                     {
                         <li>@Html.ActionLink("Connection", "../Home/Connection", "Home", new { @style = "display:inherit" })</li>

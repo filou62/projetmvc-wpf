@@ -224,5 +224,39 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
         //        return View();
         //    }
         //}
+        [HttpPost]
+        public ActionResult Test(int retid)
+        {
+            int testid = retid;
+            TempData["estdisplay"] = "oui";
+            if (SessionManager.SessionUser != null)
+            {
+                return View("Test",_serviceJDT.GetAll().Select(s => new JDTListe()
+                {
+                    Id = s.Id,
+                    PersonnelId = s.PersonnelId,
+                    PosteId = s.PosteId,
+                    DateChantier = s.DateChantier,
+                    HeuresProd = s.HeuresProd,
+                    VoitPerso = s.VoitPerso,
+                    ZoneDepl = s.ZoneDepl,
+                    ChefChantierId = s.ChefChantierId,
+                    Login = s.Login,
+                    NumSemaine = s.NumSemaine,
+                    EstValide = s.EstValide
+                }));
+            }
+            else
+                return RedirectToAction("../../Home/Index");
+        }
+        [HttpGet]
+        public ActionResult Test()
+        
+        {
+            
+            TempData.Add("estdisplay", "non");
+                       
+            return View();
+        }
     }
 }

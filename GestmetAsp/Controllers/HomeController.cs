@@ -26,14 +26,14 @@ namespace GestmetAsp.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "GESTMET";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "SOCIETE L.......B";
 
             return View();
         }
@@ -73,7 +73,7 @@ namespace GestmetAsp.Controllers
              else
                {
                     
-                    ViewBag.Message = "Vous devez vous inscrire avant de vous connecter";
+                    ViewBag.Message = "Vous devez vous inscrire avant de vous connecter : retour à l'accueil";
                     return View();
                     //return RedirectToAction("../Home/Index"); 
                 }

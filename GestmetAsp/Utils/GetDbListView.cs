@@ -46,7 +46,7 @@ namespace GestmetAsp.Utils
         public IEnumerable<VChantier> GetVChantiers()
         {
             _serviceChantier = new VChantierRepository();
-            IEnumerable<Models.VChantier> VChantierList = _serviceChantier.GetAll().Select(s => new VChantier()
+            IEnumerable<VChantier> VChantierList = _serviceChantier.GetAll().Select(s => new VChantier()
             {
                 Id = s.Id,
                 Ref = s.Ref,

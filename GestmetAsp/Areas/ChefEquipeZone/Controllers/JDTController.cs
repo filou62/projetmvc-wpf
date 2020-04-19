@@ -1,6 +1,7 @@
 ﻿using GestmetAsp.Models;
 using GestmetAsp.Utils;
 using GestmetModelsInterfaces;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,43 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
             vgetlist = new GetDbListView();
         }
         // GET: JDT
-        public ActionResult Index()
+       [HttpGet]
+        public ActionResult Index(bool retautreview)
         {
             if (SessionManager.SessionUser != null)
             {
-                return View(_serviceJDT.GetAll().Select(s => new JDTListe()
+                if(!retautreview)
+                { 
+                TempData.Add("estdisplay", "non");
+
+                }
+                /// TempData.Add("listchantier", vgetlist.GetVChantiers());
+                IEnumerable<Models.VChantier> castlistchantier = vgetlist.GetVChantiers();
+                ViewData["viewlistchantier"] = castlistchantier;
+                return View();
+            }
+            else
+            return RedirectToAction("../../Home/Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(DateTime? datedebut, int? choixchantier)
+        {
+            if (datedebut == null || (int)((DateTime)datedebut).DayOfWeek != 1)
+            {
+                ViewBag.Message = "La date de recherche n'est pas un lundi ou n'est pas valable";
+                TempData["estdisplay"] = "non";
+                return View();
+            }
+           
+            TempData["estdisplay"] = "oui";
+            IEnumerable<Models.VPoste> listposte = vgetlist.GetVPostes();
+            //new IEnumerable<Models.VPoste>();
+            //listposte = vgetlist.GetVPostes();
+            if (SessionManager.SessionUser != null)
+            {
+                return View("Index", _serviceJDT.GetAll().Select(s => new JDTListe()
                 {
                     Id = s.Id,
                     PersonnelId = s.PersonnelId,
@@ -44,7 +77,11 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
                     Login = s.Login,
                     NumSemaine = s.NumSemaine,
                     EstValide = s.EstValide
-                }));
+                })
+                    .Where(jdt => jdt.ChefChantierId == SessionManager.SessionUser.PersonnelId 
+                    && (listposte.FirstOrDefault(lp=>lp.IdPoste== jdt.PosteId).ChantierId==(int)choixchantier)
+                             && (jdt.DateChantier >= datedebut & jdt.DateChantier <= ((DateTime)datedebut).AddDays(6))));
+            
             }
             else
                 return RedirectToAction("../../Home/Index");
@@ -185,8 +222,8 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
                 try
                 {
                     _serviceJDT.Update(id, new JournalDesTravaux(jdtpost.PersonnelId, jdtpost.PosteId, jdtpost.DateChantier, jdtpost.HeuresProd, jdtpost.VoitPerso, jdtpost.ZoneDepl, jdtpost.ChefChantierId,SessionManager.SessionUser.PersonnelId, jdtpost.EstValide));
-
-                    return RedirectToAction("Index");
+                   // bool retautreview = true;
+                    return RedirectToAction("Index",new { retautreview = true });
                 }
                 catch (Exception ex)
                 {
@@ -224,39 +261,7 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
         //        return View();
         //    }
         //}
-        [HttpPost]
-        public ActionResult Test(int retid)
-        {
-            int testid = retid;
-            TempData["estdisplay"] = "oui";
-            if (SessionManager.SessionUser != null)
-            {
-                return View("Test",_serviceJDT.GetAll().Select(s => new JDTListe()
-                {
-                    Id = s.Id,
-                    PersonnelId = s.PersonnelId,
-                    PosteId = s.PosteId,
-                    DateChantier = s.DateChantier,
-                    HeuresProd = s.HeuresProd,
-                    VoitPerso = s.VoitPerso,
-                    ZoneDepl = s.ZoneDepl,
-                    ChefChantierId = s.ChefChantierId,
-                    Login = s.Login,
-                    NumSemaine = s.NumSemaine,
-                    EstValide = s.EstValide
-                }));
-            }
-            else
-                return RedirectToAction("../../Home/Index");
-        }
-        [HttpGet]
-        public ActionResult Test()
         
-        {
-            
-            TempData.Add("estdisplay", "non");
-                       
-            return View();
-        }
+        
     }
 }

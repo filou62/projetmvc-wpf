@@ -1,93 +1,115 @@
-﻿@model IEnumerable<GestmetAsp.Models.JDTListe>
+﻿
+@model IEnumerable<GestmetAsp.Models.JDTListe>
 
 @{
-    ViewBag.Title = "Test";
-    //bool estdisplay = false;
+
+    ViewBag.Title = "Encodade des prestations";
+    //List<GestmetAsp.Models.VChantier> chantierliste = TempData["listchantier"].< GestmetAsp.Models.VChantier>.ToList();
+
 }
 
+<h2>@ViewBag.Title</h2>
+<h3>Entrez le premier jour de la semaine à encoder (il doit être un lundi)</h3>
+<h3>Entrez le chantier de référence dans la liste</h3>
+<h4>@ViewBag.Message</h4>
 
-<h2>Test</h2>
+
 <form method="post">
     @Html.AntiForgeryToken()
-    <input type="number" name="retid" />
+    <input type="datetime" name="datedebut" required />
+    <span class="validity"></span>
+    <select name="choixchantier" required>
+        <option value="">faites un choix</option>
+        @if (ViewData["viewlistchantier"] != null)
+        {
+            //var chantierliste = (List)TempData["listchantier"] as List<GestmetAsp.Models.VChantier>;
+            foreach (var chantier in (IEnumerable<GestmetAsp.Models.VChantier>)ViewData["viewlistchantier"])
+            {
+                <option value="@chantier.Id">@chantier.Ref (@chantier.Nom @chantier.Lieu)</option>
+            }
+        }
+    </select>
+    <span class="validity"></span>
+
+
+
     <input type="submit" name="envoyer" />
 </form>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@if(TempData["estdisplay"]=="oui")
-{ 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PersonnelId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PosteId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateChantier)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HeuresProd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VoitPerso)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZoneDepl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChefChantierId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstValide)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@if ((string)TempData["estdisplay"] == "oui")
+{
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonnelId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PosteId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateChantier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeuresProd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VoitPerso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ZoneDepl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChefChantierId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Login)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstValide)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonnelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PosteId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateChantier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeuresProd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VoitPerso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZoneDepl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChefChantierId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstValide)
+            </th>
+            <th></th>
         </tr>
 
-    }
-   
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonnelId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PosteId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateChantier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeuresProd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VoitPerso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZoneDepl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChefChantierId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstValide)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+
+        }
+
+    </table>
 }

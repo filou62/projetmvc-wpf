@@ -1,0 +1,38 @@
+﻿
+@{
+
+    ViewBag.Title = "Encodade des prestations";
+    //List<GestmetAsp.Models.VChantier> chantierliste = TempData["listchantier"].< GestmetAsp.Models.VChantier>.ToList();
+
+
+
+    <h2>@ViewBag.Title</h2>
+    <h3>Entrez le premier jour de la semaine à encoder (il doit être un lundi)</h3>
+    <h3>Entrez le chantier de référence dans la liste</h3>
+    <h4>@ViewBag.Message</h4>
+
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <input type="datetime" name="datedebut" required />
+        <span class="validity"></span>
+        <select name="choixchantier" required>
+            <option value="">faites un choix</option>
+            @if (ViewData["viewlistchantier"] != null)
+            {
+                //var chantierliste = (List)TempData["listchantier"] as List<GestmetAsp.Models.VChantier>;
+                foreach (var chantier in (IEnumerable<GestmetAsp.Models.VChantier>)ViewData["viewlistchantier"])
+                {
+                    <option value="@chantier.Id">@chantier.Ref (@chantier.Nom @chantier.Lieu)</option>
+                }
+            }
+        </select>
+        <span class="validity"></span>
+
+
+
+        <input type="submit" name="envoyer" />
+    </form>
+
+}
+

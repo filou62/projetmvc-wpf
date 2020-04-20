@@ -333,11 +333,13 @@
     <Content Include="Areas\ChefEquipeZone\Views\web.config" />
     <Content Include="Areas\ChefEquipeZone\Views\_ViewStart.cshtml" />
     <Content Include="Areas\ChefEquipeZone\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\ChefEquipeZone\Views\JDT\Index.cshtml" />
+    <Content Include="Areas\ChefEquipeZone\Views\JDT\Indexold.cshtml" />
     <Content Include="Areas\ChefEquipeZone\Views\JDT\Create.cshtml" />
     <Content Include="Areas\ChefEquipeZone\Views\JDT\Details.cshtml" />
     <Content Include="Areas\ChefEquipeZone\Views\JDT\Edit.cshtml" />
     <Content Include="Areas\ChefEquipeZone\Views\JDT\Test.cshtml" />
+    <Content Include="Areas\ChefEquipeZone\Views\JDT\Init.cshtml" />
+    <Content Include="Areas\ChefEquipeZone\Views\JDT\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

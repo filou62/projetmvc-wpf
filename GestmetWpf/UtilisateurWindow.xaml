@@ -37,19 +37,18 @@
         <ListView Grid.Row="1" 
                   ItemsSource="{Binding UtilisateurList}">
             <ListView.ItemTemplate>
-                <!--Definition du Template d'une ligne de ma ListView -->
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding Email}"/>
-                        <Label Content="{Binding Login}"/>
-                        <Label Content="{Binding PersonnelId}"/>
-                        <CheckBox IsChecked="{Binding EstActif}"/>
-                        <Button Content="Delete"
+            <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+            <Label x:Name="label1" Content="{Binding Email}" Height="36" Width="130"/>
+            <Label x:Name="label2" Content="{Binding Login}" Height="36" Width="130"/>
+            <Label x:Name="label3" Content="{Binding PersonnelId}" Height="36" Width="130"/>
+            <Label x:Name="label4" Content="{Binding EstActif}" Height="36" Width="130"/>
+             <Button Content="Delete"
                                 Command="{Binding RemoveCommand, Source={StaticResource Utilisateur}}" 
-                                CommandParameter="{Binding .}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                                CommandParameter="{Binding .}"/>   
+             </StackPanel> 
+              </DataTemplate>  
+                </ListView.ItemTemplate>              
         </ListView>
     </Grid>
 </Window>

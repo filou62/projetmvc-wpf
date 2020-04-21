@@ -17,33 +17,45 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
     {
         private IRepositoryGlobal<JournalDesTravaux> _serviceJDT;
         private GetDbListView vgetlist;
+        private List<DateTime> listdate;
         public JDTController()
         {
             _serviceJDT = new JDTRepository();
             vgetlist = new GetDbListView();
+            listdate = new List<DateTime>();
         }
 //.........................................***********INIT************...............................................
         [HttpGet]
         public ActionResult Init()
         {
-            IEnumerable<Models.VChantier> listchoixchantier = vgetlist.GetVChantiers();
+            if (SessionManager.SessionUser != null)
+            { 
+                IEnumerable<Models.VChantier> listchoixchantier = vgetlist.GetVChantiers();
             ViewData["viewlistchantier"] = listchoixchantier;
             return View();
+            }
+            return RedirectToAction("../../Home/Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Init(DateTime? datedebut, int? choixchantier)
         {
-            if (datedebut == null || (int)((DateTime)datedebut).DayOfWeek != 1)
+            if (ModelState.IsValid)
             {
-                ViewBag.Message = "La date de recherche n'est pas un lundi ou n'est pas valable";
-                return View();
+                if (datedebut == null || (int)((DateTime)datedebut).DayOfWeek != 1)
+                {
+                    ViewBag.Message = "La date de recherche n'est pas un lundi ou n'est pas valable";
+                    return View();
+                }
+               
+                TempData["choixchantier"] = (int)choixchantier;
+                TempData["datedebut"] = (DateTime)datedebut;
+                
+                return RedirectToAction("Index", new { choixchantier = @TempData["choixchantier"], datedebut = @TempData["datedebut"] });
             }
-            TempData["choixchantier"] = (int)choixchantier;
-            TempData["datedebut"] = (DateTime)datedebut;
-            return RedirectToAction("Index", new { choixchantier = @TempData["choixchantier"], datedebut = @TempData["datedebut"] });
-
+            else
+                return View();
         }
         //.........................................***********INDEX************...............................................       
         [HttpGet]
@@ -114,6 +126,12 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
                 JDTPost jdtpost = new JDTPost();
                 jdtpost.Poste = vgetlist.GetVPostes().Where(p => p.ChantierId == (int)TempData["choixchantier"]);
                 jdtpost.Personnel = vgetlist.GetVPersonnels();
+                listdate.Add((DateTime)datedebut);
+                for(int i=1;i<7;i++)
+                { 
+                listdate.Add(((DateTime)datedebut).AddDays(i));
+                }
+                jdtpost.ListeDate = listdate;
                 
                 return View("Create", jdtpost);
             }
@@ -153,6 +171,11 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
                 JournalDesTravaux s = _serviceJDT.GetOne(id);
                 TempData["choixchantier"] = choixchantier;
                 TempData["datedebut"] = datedebut;
+                listdate.Add((DateTime)datedebut);
+                for (int i = 1; i < 7; i++)
+                {
+                    listdate.Add(((DateTime)datedebut).AddDays(i));
+                }
                 return View(new JDTPost()
                 {
                     //Id = s.Id,
@@ -167,7 +190,8 @@ namespace GestmetAsp.Areas.ChefEquipeZone.Controllers
                     //NumSemaine = s.NumSemaine,
                     EstValide = s.EstValide,
                     Poste = vgetlist.GetVPostes().Where(p => p.ChantierId == (int)TempData["choixchantier"]),
-                    Personnel = vgetlist.GetVPersonnels()
+                    Personnel = vgetlist.GetVPersonnels(),
+                    ListeDate=listdate
                 }); 
             }
             else

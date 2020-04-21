@@ -22,6 +22,7 @@ namespace GestmetAsp.Models
         public bool EstValide { get; set; }
         public IEnumerable<VPoste> Poste { get; set; }
         public IEnumerable<VPersonnel> Personnel { get; set; }
+        public List<DateTime> ListeDate { get; set; }
 
     }
 }
